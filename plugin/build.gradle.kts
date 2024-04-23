@@ -19,6 +19,10 @@ repositories {
     mavenCentral()
 }
 
+dependencies {
+    implementation("io.github.realyusufismail:jconfig:1.1.2")
+}
+
 testing {
     suites {
         // Configure the built-in test suite
@@ -50,8 +54,8 @@ testing {
 gradlePlugin {
     // Define the plugin
     val greeting by plugins.creating {
-        id = "org.example.greeting"
-        implementationClass = "org.example.JconfigPluginPlugin"
+        id = "io.github.realyusufismail"
+        implementationClass = "io.github.realyusufismail.JconfigPluginPlugin"
     }
 }
 
