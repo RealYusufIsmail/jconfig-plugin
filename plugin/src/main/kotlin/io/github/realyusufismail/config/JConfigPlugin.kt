@@ -1,10 +1,10 @@
-package io.github.realyusufismail
+package io.github.realyusufismail.config
 
 import com.fasterxml.jackson.databind.JsonNode
-import io.github.realyusufismail.impl.JGradleConfigObjectImpl
+import io.github.realyusufismail.config.impl.JConfigPluginObjectImpl
 import io.github.realyusufismail.jconfig.classes.JsonEntry
 
-interface JGradleConfig {
+interface JConfigPlugin {
     /**
      * Gets all the entries in the config file.
      *
@@ -36,8 +36,8 @@ interface JGradleConfig {
      * @param key The key of the value.
      * @return The value of the key.
      */
-    fun getAsJConfigObject(key: String): JGradleConfigObject? {
-        return get(key)?.let { JGradleConfigObjectImpl(it) }
+    fun getAsJConfigObject(key: String): JConfigPluginObject? {
+        return get(key)?.let { JConfigPluginObjectImpl(it) }
     }
 
     /**
@@ -67,7 +67,7 @@ interface JGradleConfig {
      * @param value The value to set.
      * @return The value of the key.
      */
-    operator fun set(key: String, value: JGradleConfigObject)
+    operator fun set(key: String, value: JConfigPluginObject)
 
     /**
      * Used to check if the value is present

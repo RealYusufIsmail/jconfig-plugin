@@ -1,14 +1,12 @@
-package io.github.realyusufismail.impl
+package io.github.realyusufismail.config.impl
 
 import com.fasterxml.jackson.databind.JsonNode
-import io.github.realyusufismail.JGradleConfig
-import io.github.realyusufismail.JGradleConfigObject
-import io.github.realyusufismail.jconfig.classes.JConfigObjectImpl
+import io.github.realyusufismail.config.JConfigPluginObject
 import io.github.realyusufismail.jconfig.classes.JsonEntry
 import java.math.BigDecimal
 import java.math.BigInteger
 
-class JGradleConfigObjectImpl(private val value: JsonNode) : JGradleConfigObject {
+class JConfigPluginObjectImpl(private val value: JsonNode) : JConfigPluginObject {
     override val asString: String
         get() {
             if (value.isTextual) {

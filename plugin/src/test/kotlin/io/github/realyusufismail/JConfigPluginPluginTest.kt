@@ -8,15 +8,16 @@ import kotlin.test.Test
 import kotlin.test.assertNotNull
 
 /**
- * A simple unit test for the 'org.example.greeting' plugin.
+ * A simple functional test for the 'io.github.realyusufismail.jconfig-plugin' plugin.
  */
-class JconfigPluginPluginTest {
-    @Test fun `plugin registers task`() {
+class JConfigPluginPluginFunctionalTest {
+
+    @Test fun `can run task`() {
         // Create a test project and apply the plugin
         val project = ProjectBuilder.builder().build()
-        project.plugins.apply("io.github.realyusufismail.greeting")
+        project.plugins.apply("io.github.realyusufismail.jconfig-plugin")
 
         // Verify the result
-        assertNotNull(project.tasks.findByName("greeting"))
+        assertNotNull(project.tasks.findByName("jconfigTask"))
     }
 }
