@@ -14,13 +14,14 @@ import org.junit.jupiter.api.io.TempDir
  */
 class JConfigPluginPluginPluginFunctionalTest {
 
-    @field:TempDir
+    @TempDir
     lateinit var projectDir: File
 
     private val buildFile by lazy { projectDir.resolve("build.gradle.kts") }
     private val settingsFile by lazy { projectDir.resolve("settings.gradle.kts") }
 
-    @Test fun `can run task`() {
+    @Test
+    fun `can run task`() {
         // Set up the test build
         settingsFile.writeText("")
         buildFile.writeText("""
@@ -28,6 +29,18 @@ class JConfigPluginPluginPluginFunctionalTest {
                 id("io.github.realyusufismail.jconfig-plugin")
             }
         """.trimIndent())
+
+        // Create a temporary config.json file
+        val configFile = File(projectDir, "config.json")
+        println("Config file path: ${configFile.absolutePath}")
+        configFile.writeText(
+            """
+        {
+            "key1": "value1",
+            "key2": "value2"
+        }
+        """.trimIndent()
+        )
 
         // Run the build
         val runner = GradleRunner.create()
