@@ -32,7 +32,6 @@ class JConfigPluginPluginPluginFunctionalTest {
 
         // Create a temporary config.json file
         val configFile = File(projectDir, "config.json")
-        println("Config file path: ${configFile.absolutePath}")
         configFile.writeText(
             """
         {

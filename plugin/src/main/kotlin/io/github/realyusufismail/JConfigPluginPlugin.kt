@@ -16,15 +16,18 @@ class JConfigPluginPlugin: Plugin<Project> {
      * @param project The project to which the plugin is applied.
      */
     override fun apply(project: Project) {
+        val extension = project.extensions.create("jconfigExtension", JConfigPluginExtension::class.java)
+
         project.plugins.withType(JConfigPluginPlugin::class.java) {
-            val configFile = project.file("config.json")
+            val configFile = project.file(extension.configFileName)
+
             if (!configFile.exists()) {
                 throw JConfigException("Config file does not exist!")
             }
 
             val jConfigPlugin = JConfigPluginBuilder().build(configFile)
 
-            project.extensions.add("jconfig", jConfigPlugin)
+            project.extensions.add(JConfigPlugin::class.java, "jconfig", jConfigPlugin)
 
             project.tasks.register("jconfigTask", JconfigTask::class.java) { task ->
                 task.config = jConfigPlugin
