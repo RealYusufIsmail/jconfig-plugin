@@ -2,7 +2,13 @@ plugins {
     `java-gradle-plugin`
     alias(libs.plugins.jvm)
     id("com.diffplug.spotless") version "6.25.0"
+    id("com.gradle.plugin-publish") version "1.2.1"
+    signing
 }
+
+version = "0.0.1.alpha1"
+val releaseVersion by extra(!version.toString().endsWith("-SNAPSHOT"))
+group = "io.github.realyusufismail"
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -92,5 +98,29 @@ spotless {
         trimTrailingWhitespace()
         indentWithSpaces()
         endWithNewline()
+    }
+}
+
+gradlePlugin {
+    website.set("https://github.com/RealYusufIsmail/jconfig-plugin")
+    vcsUrl.set("https://github.com/RealYusufIsmail/jconfig-plugin.git")
+    plugins {
+        create("jconfig-plugin") {
+            id = "io.github.realyusufismail.jconfig-plugin"
+            implementationClass = "io.github.realyusufismail.JConfigPluginPlugin"
+            displayName = "JConfig Plugin"
+            description = "A simple plugin made to help with storing and retrieving data from a json file in gradle."
+        }
+    }
+}
+
+signing {
+    afterEvaluate {
+        // println "sign: " + isReleaseVersion
+        val isRequired =
+            releaseVersion &&
+                    (tasks.withType<PublishToMavenRepository>().find { gradle.taskGraph.hasTask(it) } !=
+                            null)
+        setRequired(isRequired)
     }
 }
